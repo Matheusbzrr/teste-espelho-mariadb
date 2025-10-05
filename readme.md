@@ -39,13 +39,13 @@
     SHOW MASTER STATUS;
 
     Anote os valores das colunas File e Position.
-
+     mysql-bin.000001 |      787 
  - 10: Conecte-se à réplica:
     docker exec -it mariadb-replica mariadb -u root -p
 
 - 11: Configure a réplica para seguir o primário.
     CHANGE MASTER TO
-    MASTER_HOST='mariadb-primary',
+    MASTER_HOST='<IP DA MAQUINA>', 
     MASTER_USER='replicador',
     MASTER_PASSWORD='outra_senha_forte',
     MASTER_LOG_FILE='ARQUIVO_ANOTADO',
@@ -88,6 +88,7 @@ Pra realizar no windows o processo de mudança para as configurações bases é 
 Para achar o arquivo dando comandos no cmd
 sc query state= all | findstr /I "maria"
 sc qc nome-do-serviço
+notepad "caminho-do-my.ini"
 
 Abrir o Bloco de Notas como Administrador.
 Ir em Arquivo > Abrir.

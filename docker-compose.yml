@@ -1,29 +1,31 @@
 services:
   mariadb-primary:
-    build: . # usando o Dockerfile para construir uma imagem com o editor nano
+    build: .  
     container_name: mariadb-primary
     restart: unless-stopped
     environment:
       - MARIADB_ROOT_PASSWORD=senhasenha
-    volumes:
-      - mariadb-primary-data:/var/lib/mysql
     ports:
       - "3308:3306"
+    volumes:
+      - mariadb-primary-data:/var/lib/mysql
     networks:
-      - mariadb_network
+      mariadb_net:
+        ipv4_address: 172.28.0.2
 
   mariadb-replica:
-    build: .
+    build: .   
     container_name: mariadb-replica
     restart: unless-stopped
     environment:
       - MARIADB_ROOT_PASSWORD=senhasenha
-    volumes:
-      - mariadb-replica-data:/var/lib/mysql
     ports:
       - "3307:3306"
+    volumes:
+      - mariadb-replica-data:/var/lib/mysql
     networks:
-      - mariadb_network
+      mariadb_net:
+        ipv4_address: 172.28.0.3
     depends_on:
       - mariadb-primary
 
@@ -32,4 +34,8 @@ volumes:
   mariadb-replica-data:
 
 networks:
-  mariadb_network:
+  mariadb_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16

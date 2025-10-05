@@ -48,8 +48,8 @@
     MASTER_HOST='<IP DA MAQUINA>', 
     MASTER_USER='replicador',
     MASTER_PASSWORD='outra_senha_forte',
-    MASTER_LOG_FILE='ARQUIVO_ANOTADO',
-    MASTER_LOG_POS=POSICAO_ANOTADA;
+    MASTER_LOG_FILE='mysql-bin.000001',
+    MASTER_LOG_POS= 787;
 
 - 12: Inicie o processo de replicação:
     START SLAVE;
